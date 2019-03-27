@@ -1,7 +1,7 @@
 package com.persistance.snapshotting
 
 import akka.actor.{ActorLogging, ActorSystem, Props}
-import akka.persistence.{PersistentActor, SnapshotOffer}
+import akka.persistence.{PersistentActor, SaveSnapshotFailure, SaveSnapshotSuccess, SnapshotOffer}
 
 import scala.collection.mutable
 
@@ -42,6 +42,8 @@ object PersistentActorWithSnapshottingDriver extends App {
           queue.enqueue(trade)
 
         }
+      case SaveSnapshotSuccess(metadata) => log.info(s"Snapshot saved successfully $metadata ...")
+      case SaveSnapshotFailure(metadata, cause) => log.info(s"Snapshot saved failed for $metadata with exception $cause ...")
       case PrintTrade => log.info("Current state of trade= " + trade+ ", amount=" + totalAmount)
     }
     override def receiveRecover: Receive = {
@@ -57,14 +59,14 @@ object PersistentActorWithSnapshottingDriver extends App {
   }
 
   val actorSystem = ActorSystem("PersistentWithSnapShottingSystem")
-  val actor1 = actorSystem.actorOf(Props[PersistentWithSnapShottingActor], "PersistentWithSnapShottingActor")
+  val actor = actorSystem.actorOf(Props[PersistentWithSnapShottingActor], "PersistentWithSnapShottingActor")
 
 
   //Note: This should be uncommented each time, the current object state wants to be restored.
     for(i <- 1 to 20000) {
-      actor1 ! PersistTrade(Trade(i, 10.0))
+      actor ! PersistTrade(Trade(i, 10.0))
     }
 
-  actor1 ! PrintTrade
+  actor ! PrintTrade
 
 }
