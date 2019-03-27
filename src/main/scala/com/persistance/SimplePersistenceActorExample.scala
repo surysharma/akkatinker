@@ -3,7 +3,7 @@ package com.persistance
 import akka.actor.{ActorLogging, ActorSystem, Props}
 import akka.persistence.PersistentActor
 
-object PersistanceActorExample extends App{
+object SimplePersistenceActorExample extends App{
 
   //Command
   case class SimpleCommand(content: String)

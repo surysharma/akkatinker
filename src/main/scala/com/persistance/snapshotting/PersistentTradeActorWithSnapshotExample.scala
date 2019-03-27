@@ -5,7 +5,7 @@ import akka.persistence.{PersistentActor, SaveSnapshotFailure, SaveSnapshotSucce
 
 import scala.collection.mutable
 
-object PersistentActorWithSnapshottingDriver extends App {
+object PersistentTradeActorWithSnapshotExample extends App {
 
   case class Trade(id: Int, amount: Double)
 
