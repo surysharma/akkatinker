@@ -31,7 +31,6 @@ object RoundRobinRouterDriver extends App {
         log.info(s"Parent Received $messageId from child $actorRef...")
         context.stop(actorRef)
 
-
       case Terminated(actor: ActorRef) => log.info(s"Actor $actor died...")
 
     }
