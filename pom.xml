@@ -65,6 +65,19 @@
             <version>1.8</version>
         </dependency>
 
+        <!-- Akka http -->
+        <dependency>
+            <groupId>com.typesafe.akka</groupId>
+            <artifactId>akka-http_2.12</artifactId>
+            <version>10.1.8</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.typesafe.akka</groupId>
+            <artifactId>akka-stream_2.12</artifactId>
+            <version>2.5.19</version>
+        </dependency>
+
     </dependencies>
 
     <build>
